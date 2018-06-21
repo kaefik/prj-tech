@@ -1,97 +1,93 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
 .page {
     display: flex;
     flex-direction: column;
+    align-items: center;    
+
+    width: 1000px;
+
+    border: 1px solid pink;
 }
 
-.logoimg {
-    float: right;
+.logo {
+    align-self:flex-end;
+
+    margin-right: 81px;
+    margin-top: 10px;
 }
 
 .line2 {
     display: flex;
-    flex-direction: column;
-    
+    justify-content: center;   
+    align-content: center; 
+    align-items: center;
+
+    width: 640px;    
+    /*border: 1px solid red;*/
 }
 
-.line2 > p {
+.arrow {
+    background: radial-gradient(circle, #ffdb4a, #ffdb4a);
+
+    border-radius: 50%;
+
+    width: 100px;
+}
+
+
+.line2 :nth-child(2) > div {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 36pt;
+    font-size: 28pt;
+    text-align: left;     
 }
 
 .videoline {
     display: flex;
     flex-direction: column;
-}
+    align-items: center;
 
-.videos {
-
-}
-
-.videos > div {
-    background: rgba(41,54,60, 0.7)
-}
-
-.videos > div > img {
     align-content: center;
+
+    height: 361px;
+
+    border: 1px solid red;
+
+    background: url("../img/Video\ snapshot.png");
 }
 
-.videos >p {
+.videoline :nth-child(1) {
+    /*position: absolute;*/
+
+    display: flex;
+    align-items: center;
+
+    height: 48px;
+    width: 640px;    
+
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 29.02pt;
+
+    text-align: center;
+
+    background: rgba(41,54,60, 0.7);
+}
+
+.playbtn {
+    background: radial-gradient(circle, #ffdb4a, #ffdb4a);
+
+    border-radius: 50%;
+
+    width: 100px;
+}
+
+.prostotext {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 47pt;
 
     text-align: center;
-}
-
-.benefits {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-
-    
-}
-
-.elem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    width: 194px;
-    margin: 10px;
-}
-
-
-.elem :nth-child(2) {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 30pt;
-
-    text-overflow: ellipsis;
-}
-
-.elem :nth-child(3) {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16pt;
-}
-
-.footer {
-    display: flex;
-    flex-direction: column;
-}
-
-.footer > p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 42pt;
-
-    text-align: center;
-}
-
-.button {
-    display: inline;
-    background: #ffe13a;
-    margin: 10px auto;
-
-    padding: 0.5em;
-    
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 36pt;
 }
