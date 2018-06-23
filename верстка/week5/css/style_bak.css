@@ -1,0 +1,121 @@
+body {
+    /*max-width: 1920px;*/
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.logoimg {
+    float: right;
+}
+
+.line2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    align-content: center; 
+
+    width: 640px;
+
+    
+    border: 1px solid red;
+}
+
+.line2 > div {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36pt;
+    text-align: left;
+    
+}
+
+.line2 > img {
+    width: 640px;
+}
+
+
+
+
+
+
+
+.videoline {
+    display: flex;
+    flex-direction: column;
+}
+
+.videos {
+
+}
+
+.videos > div {
+    background: rgba(41,54,60, 0.7)
+}
+
+.videos > div > img {
+    align-content: center;
+    width: 640px;
+}
+
+.videos >p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 47pt;
+
+    text-align: center;
+}
+
+.benefits {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    
+}
+
+.elem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    width: 194px;
+    margin: 10px;
+}
+
+
+.elem :nth-child(2) {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30pt;
+
+    text-overflow: ellipsis;
+}
+
+.elem :nth-child(3) {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer > p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 42pt;
+
+    text-align: center;
+}
+
+.button {
+    display: inline;
+    background: #ffe13a;
+    margin: 10px auto;
+
+    padding: 0.5em;
+    
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36pt;
+}
