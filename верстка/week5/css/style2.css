@@ -65,6 +65,16 @@ body {
     /*border: 1px solid red;*/
 }
 
+.arrowleft:hover, .arrowright:hover, .playbtn:hover {
+    opacity: 0.8;
+}
+
+.arrowleft:hover  *, .arrowright:hover *, .playbtn:hover *{
+    opacity: 0.8;
+}
+
+
+
 .arrowleft > img {
     padding-top: 4px;
     padding-left: 18px;
@@ -103,8 +113,8 @@ body {
     /*border: 1px solid black;*/
     margin-top: 31px;
 
-    padding-top: 5px;
-    padding-right: 39px;
+    padding-top: 6px;
+    padding-right: 40px;
 }
 
 /* line3 */
@@ -213,7 +223,7 @@ body {
 
 
 .elem1 > img {
-    padding-left: 21px;
+    padding-left: 17px;
     padding-top: 4px;
 }
 
@@ -222,7 +232,7 @@ body {
     font-size: 23pt;
 
     margin-top: -2px;
-    padding-left: 18px;
+    padding-left: 14px;
 }
 
 .elem1 :nth-child(3) {
@@ -242,7 +252,7 @@ body {
 }
 
 .elem2 > img {
-    padding-left: 16px;
+    padding-left: 14px;
 }
 
 .elem2 :nth-child(2) {
@@ -250,7 +260,12 @@ body {
     font-size: 23pt;
 
     margin-top: 2px;
-    padding-left: 16px;
+    padding-left: 14px;
+
+    width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .elem2 :nth-child(3) {
@@ -282,6 +297,11 @@ body {
 
     margin-top: 7px;
     padding-left: 14px;
+    
+    width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .elem3 :nth-child(3) {
@@ -289,6 +309,11 @@ body {
     font-size: 13pt;
 
     letter-spacing: -1px;
+
+    margin-top: -15px;
+    padding-left: 14px;
+    line-height: 119%;
+    word-spacing: 3px;
 }
 
 
@@ -302,8 +327,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
 
-    margin-top: 7px;    
-    padding-left: 12px;
+    margin-top: 8px;    
+    padding-left: 14px;
     
     letter-spacing: normal;    
     word-spacing: -1px;
@@ -312,7 +337,7 @@ body {
 
 .elem4 > img {
     padding-top: 10px;
-    padding-left: 13px;
+    padding-left: 15px;
 }
 
 .elem4 :nth-child(3) {
@@ -335,7 +360,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 42px;
     
-    margin-top: -3px;    
+    margin-top: 49px;    
     margin-left: 46px;
     
     letter-spacing: 0px;    
@@ -350,36 +375,48 @@ body {
     width: 318px;
     height: 71px;
 
-    margin-top: 66px;
-    margin-left: 0px;
+    margin-top: 63px;
+    margin-left: -1px;
 
     letter-spacing: 0px;
     word-spacing: 1px;
 
-    background-color: #ffdc0e;
-    border-radius: 8px 8px 8px 8px
-}
-
-.button1 > p {
-    margin-top: 13px;
-}
-
-
-.button2 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 36px;
-    text-align: center;
-    width: 318px;
-    height: 71px;
-    margin-top: 5px;
-    margin-left: 4px;
-    letter-spacing: 0px;
-    word-spacing: 1px;
-    background-color: #ffdc0e;
+    background: linear-gradient(90deg,#ffe34a, #ffdb00); 
     border-radius: 8px 8px 8px 8px;
 }
 
-.button2 > p {
-    margin-top: 13px;
-    margin-left: 4px;
+.button1 :nth-child(1) {
+    margin-top: 13px;    
 }
+
+.button1 :nth-child(1)::before {
+    content: "Попробовать!";
+}
+
+.button1:hover :nth-child(1)::before {
+    content: "Hover на кнопку"; 
+}
+
+
+
+.button1:hover {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    text-align: center;
+
+    width: 318px;
+    height: 71px;
+
+    margin-top: 63px;
+    margin-left: -1px;
+
+    letter-spacing: 0px;
+    word-spacing: 1px;
+
+    background: linear-gradient(90deg,#ffe34a, #ffdb00); 
+    border-radius: 8px 8px 8px 8px;
+
+    opacity: 0.72;
+}
+
+
