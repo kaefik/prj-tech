@@ -33,6 +33,27 @@ Collection.prototype.at =  function (num) {
 
 };
 
+Collection.prototype.append =  function (vals) {
+    if (typeof(vals)!="object") {
+        this.arr.push(vals);
+    } else {
+        var array = vals.values();
+        for (var index = 0; index < array.length; index++) {
+            this.arr.push(array[index]);            
+        }
+    }
+};
+
+
+Collection.prototype.removeAt =  function (num) {
+    if (this.at(num) == null) {
+        return false;
+    }
+
+    this.arr.splice(num-1, 1);
+    return true;
+}
+
 // другие методы
 
 
@@ -42,29 +63,3 @@ Collection.prototype.at =  function (num) {
 Collection.from = function (param) {
         return new Collection(param);
 };
-
-
-var numbers = new Collection();
-console.info(numbers);
-console.info(numbers.count());
-
-
-/*
-var numbers2 = Collection.from(['a', 'b', 'c']);;
-console.info(numbers2);
-console.info(numbers2.arr);
-
-console.info( numbers2 instanceof Collection);
-console.info(numbers2.count());
-
-console.info(numbers2.values());
-*/
-
-var letters = Collection.from(['a', 'b']);
-
-console.info(letters);
-
-console.info(letters.at(0)); // null
-console.info(letters.at(1)); // 'a'
-console.info(letters.at(2)); // 'b'
-console.info(letters.at(3)); // null
