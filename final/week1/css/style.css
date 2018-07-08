@@ -39,28 +39,43 @@ h1 {
     display: flex;
 }
 
+/**/
+.celloff > .back, .celloff > .front  {
+    backface-visibility: hidden;   
+    transition: all 0.5s ease-in;
+}
+
+.cellon > .back {
+    display: flex;
+    font-size: 75px;
+
+    transform: rotateY(0deg);
+}
+
+.cellon > .front {
+
+    transform: rotateY(180deg);
+}
+
+
+/**/
+
+/* рубашка */
 .celloff {
     background: linear-gradient(to top right, #22AB93, #19668D);
     border: 5px solid white;
     border-radius: 9px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 
-    font-size: 0;
-
-    transform: rotateY(0deg);
-    transition: 0.9s;
 }
 
+/* значок */
 .cellon {
     background: white;
     border: 5px solid white;
     border-radius: 9px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 
-    font-size: 75px;  
-
-    transform: rotateY(180deg);
-    transition: 0.9s;
+    /*font-size: 75px;  */
 }
-
-
+*/
