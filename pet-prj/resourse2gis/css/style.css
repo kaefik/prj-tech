@@ -1,0 +1,43 @@
+.b-main-page {
+    display: flex;
+    flex-direction: column;
+
+    
+    border: 1px solid red;
+}
+
+.b-main-page__header {
+
+}
+
+.b-main-page__footer {
+
+}
+
+.b-main-page__sections {
+
+}
+
+.b-section {
+
+}
+
+.b-section__head {
+
+}
+
+.b-section__line {
+    
+}
+
+.b-line {
+
+}
+
+.b-line__head {
+
+}
+
+.b-line__description {
+    
+}
