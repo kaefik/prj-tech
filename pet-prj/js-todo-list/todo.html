@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">  
     <title>TODO-шечка</title>
 </head>
 <body>
+    <div class="b-main-page">
+        <div class="b-main-page__header">
+            <h1>todos</h1>
+        </div>
+
+        <div class="b-main-page__middle">
+            <div class="b-input-line">
+                    <input type="text" class="b-input-line__search" placeholder="What needs to be done?">
+            </div>
+
+            <div class="b-lists-task">
+                <div class="b-lists-task__line">
+                    <div class="b-task">
+                        <input type="checkbox" value="" id="chk-task">
+                            <label for="chk-task">первая задача</label>
+                    </div>
+                    <div class="b-task">
+                        <input type="checkbox" value="" id="chk-task1" checked>
+                            <label for="chk-task1">вторая задача</label>
+                    </div>                    
+                </div>
+                <div class="b-lists-task__footer">
+                    <input type="checkbox" value="" id="btn-all" checked>
+                        <label for="btn-all">All</label>
+                    <input type="checkbox" value="" id="btn-active">
+                        <label for="btn-active">Active</label>
+                    <input type="checkbox" value="" id="btn-completed">
+                        <label for="btn-completed">Completed</label>   
+                    <input type="button" id="btn-clear-completed" >
+                        <label for="btn-clear-completed">Clear completed</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="b-main-page__footer">
+            <div>Doble-click to edit todo</div>
+            <div>Created to Ilnur Saifutdinov 2018 &copy;</div>
+        </div>
+    </div>
     
 </body>
 </html>
