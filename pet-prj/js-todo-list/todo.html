@@ -9,7 +9,7 @@
     <title>TODO-шечка</title>
 </head>
 <body>
-    <div class="b-main-page">
+    <form action="#" id="main-page-todo" class="b-main-page">
         <div class="b-main-page__header">
             <h1>todos</h1>
         </div>
@@ -24,18 +24,20 @@
                     <div class="b-task">
                         <input type="checkbox" value="" id="chk-task">
                             <label for="chk-task">первая задача</label>
+                            <div>x</div>
                     </div>
                     <div class="b-task">
                         <input type="checkbox" value="" id="chk-task1" checked>
                             <label for="chk-task1">вторая задача</label>
+                            <div>x</div>
                     </div>                    
                 </div>
                 <div class="b-lists-task__footer">
-                    <input type="checkbox" value="" id="btn-all" checked>
-                        <label for="btn-all">All</label>
-                    <input type="checkbox" value="" id="btn-active">
+                    <input type="radio" value="all" id="btn-all" name="btn-cmd" checked>
+                        <label for="btn-all">All</label> 
+                    <input type="radio" value="active" id="btn-active" name="btn-cmd">
                         <label for="btn-active">Active</label>
-                    <input type="checkbox" value="" id="btn-completed">
+                    <input type="radio" value="completed" id="btn-completed" name="btn-cmd">
                         <label for="btn-completed">Completed</label>   
                     <input type="button" id="btn-clear-completed" >
                         <label for="btn-clear-completed">Clear completed</label>
@@ -47,7 +49,14 @@
             <div>Doble-click to edit todo</div>
             <div>Created to Ilnur Saifutdinov 2018 &copy;</div>
         </div>
-    </div>
+    </form>
+
+    <script src="js/script.js"></script>
+    <script>
+        job_todo({
+            formId: 'main-page-todo'
+        });
+    </script>
     
 </body>
 </html>
