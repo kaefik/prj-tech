@@ -79,6 +79,15 @@ function create_one_task(task, idNumTask) {
     return div;
 }
 
+function onBListsTaskFooter() {
+    console.info(document.querySelector(".b-lists-task__footer").classList);
+    document.querySelector(".b-lists-task__footer").classList.remove("b-lists-task__footer_hide");
+    console.info(document.querySelector(".b-lists-task__footer").classList);
+}
+
+function offBListsTaskFooter() {
+    document.querySelector(".b-lists-task__footer").classList.add("b-lists-task__footer_hide");
+}
 
 function job_todo(settings) {
     var maintodo = document.getElementById(settings.formId);
@@ -96,15 +105,17 @@ function job_todo(settings) {
     maintodo.addEventListener("click", function(event) {
         var btn = event.target;
         console.info("click");
-        //console.info(btn.getAttribute("for"));
         if (btn.getAttribute("for")==="btn-clear-completed") {
             tasks.clearCompleted();
             var listTask = document.querySelector(".b-lists-task__line");
             listTask.innerHTML ="";
             create_all_task(tasks.task, listTask);
 
-            event.target.parentElement.querySelector("#btn-all").checked = true;
+            document.querySelector("#btn-all").checked = true;
             console.info("after clear completed task = ",tasks);
+            if (tasks.task.length ===0) {
+                offBListsTaskFooter();
+            }
 
         }
 
@@ -156,6 +167,7 @@ function job_todo(settings) {
             var div = create_one_task(tasks.task[i], "chk-task-"+i);
             var r = event.target.querySelector(".b-lists-task__line");
             r.appendChild(div);
+            onBListsTaskFooter();
         }
     }, true);
 
