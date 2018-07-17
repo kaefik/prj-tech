@@ -102,6 +102,8 @@ function job_todo(settings) {
             var listTask = document.querySelector(".b-lists-task__line");
             listTask.innerHTML ="";
             create_all_task(tasks.task, listTask);
+
+            event.target.parentElement.querySelector("#btn-all").checked = true;
             console.info("after clear completed task = ",tasks);
 
         }
