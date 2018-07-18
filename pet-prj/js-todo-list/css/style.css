@@ -38,7 +38,6 @@
 }
 
 .b-lists-task {
-    
 
     margin: 10px;
 }
@@ -49,21 +48,21 @@
     justify-content: space-around;
 }
 
-/* зачеркиваем задачу если она выполнена */
-.b-task > div {
+/* зачеркиваем задачу если она выполнена  */
+.b-task > .b-task__btnclose {
     opacity: 0;
 }
 
-.b-task > input:checked + label {
+.b-task > input:checked + div {
     text-decoration: line-through;
 }
 
 /* появление крестика на удаление задачи */
-.b-task > input:hover ~ div {
+.b-task > input:hover ~ .b-task__btnclose {
     opacity: 1;
 }
 
-.b-task > div:hover {
+.b-task > div:hover + .b-task__btnclose {
     opacity: 1;
 }
 
