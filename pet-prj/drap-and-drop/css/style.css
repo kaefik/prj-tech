@@ -1,0 +1,10 @@
+.main-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.task {
+    border: 1px solid blue;
+    width: 200px;
+    margin: 10px;
+}
