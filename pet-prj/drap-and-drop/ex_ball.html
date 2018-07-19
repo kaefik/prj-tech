@@ -5,6 +5,8 @@
   <body style="height: 200px">
   
     <p>Кликните по мячу и тяните, чтобы двигать его.</p>
+
+    <p>источник скрипта: <a href="https://learn.javascript.ru/drag-and-drop">https://learn.javascript.ru/drag-and-drop</a> </p>
   
     <img src="https://js.cx/clipart/ball.svg" 
         style="cursor: pointer; position: absolute; left: 378px; top: 87px; z-index: 1000;" 
@@ -25,47 +27,53 @@
 
         ball.onmousedown = function(e) {
 
-        var coords = getCoords(ball);
-        var shiftX = e.pageX - coords.left;
-        var shiftY = e.pageY - coords.top;
+            var coords = getCoords(ball);
+            var shiftX = e.pageX - coords.left;
+            var shiftY = e.pageY - coords.top;
 
-        ball.style.position = 'absolute';
-        document.body.appendChild(ball);
-        moveAt(e);
-
-        ball.style.zIndex = 1000; // над другими элементами
-
-        function moveAt(e) {
-            console.info("e.pageX = ", e.pageX);
-            console.info("shiftX = ", shiftX);
-            console.info("e.pageY = ", e.pageY);
-            console.info("shiftY = ", shiftY);
-            console.info("");
-
-            if ((e.pageX >=minX) && (e.pageX<=maxX)) {
-                ball.style.left = e.pageX - shiftX + 'px';
-            }
-            
-            //ball.style.left = e.pageX - shiftX + 'px';
-
-            if ((e.pageY - shiftY>=minY) && (e.pageY - shiftY<=maxY)) {
-                ball.style.top = e.pageY - shiftY + 'px';
-            }
-
-            //ball.style.top = e.pageY - shiftY + 'px';
-        }
-
-        document.onmousemove = function(e) {
+            ball.style.position = 'absolute';
+            document.body.appendChild(ball);
             moveAt(e);
-        };
 
-        ball.onmouseup = function() {
-            document.onmousemove = null;
-            ball.onmouseup = null;
-        };
+            ball.style.zIndex = 1000; // над другими элементами
+
+            function moveAt(e) {
+                console.info("e.pageX = ", e.pageX);
+                console.info("shiftX = ", shiftX);
+                console.info("e.pageY = ", e.pageY);
+                console.info("shiftY = ", shiftY);
+                console.info("");
+
+                if ((e.pageX >=minX) && (e.pageX<=maxX)) {
+                    ball.style.left = e.pageX - shiftX + 'px';
+                }
+                
+                //ball.style.left = e.pageX - shiftX + 'px';
+
+                if ((e.pageY - shiftY>=minY) && (e.pageY - shiftY<=maxY)) {
+                    ball.style.top = e.pageY - shiftY + 'px';
+                }
+
+                //ball.style.top = e.pageY - shiftY + 'px';
+            }
+
+            document.onmousemove = function(e) {
+                moveAt(e);
+            };
+
+            ball.onmouseup = function() {
+                document.onmousemove = null;
+                ball.onmouseup = null;
+            };
 
         }
 
+        /* 
+           потому, что браузер имеет свой собственный Drag’n’Drop, 
+           который автоматически запускается и вступает в конфликт с нашим.
+            Это происходит именно для картинок и некоторых других элементов.
+            Его нужно отключить:
+        */
         ball.ondragstart = function() {
         return false;
         };
