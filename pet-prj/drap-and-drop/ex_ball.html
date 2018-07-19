@@ -15,13 +15,11 @@
         var ball = document.getElementById('ball');
         
         /* координаты области которую нельзя покидать */
-        maxY = 500; /*по горизонтали*/
-        minY = 300;
+        maxY = 200; /* top */
+        minY = 80;
 
-        maxX = 200; /* по вертикали*/
+        maxX = 400; /* left */
         minX = 80;
-
-
 
         console.info(ball);
 
@@ -44,19 +42,17 @@
             console.info("shiftY = ", shiftY);
             console.info("");
 
-            /*
-            if ((e.pageX - shiftX >=minX) && ( e.pageX - shiftX<=maxX)) {
+            if ((e.pageX >=minX) && (e.pageX<=maxX)) {
                 ball.style.left = e.pageX - shiftX + 'px';
             }
-            */
             
-            ball.style.left = e.pageX - shiftX + 'px';
-            /*
+            //ball.style.left = e.pageX - shiftX + 'px';
+
             if ((e.pageY - shiftY>=minY) && (e.pageY - shiftY<=maxY)) {
                 ball.style.top = e.pageY - shiftY + 'px';
             }
-            */
-            ball.style.top = e.pageY - shiftY + 'px';
+
+            //ball.style.top = e.pageY - shiftY + 'px';
         }
 
         document.onmousemove = function(e) {
