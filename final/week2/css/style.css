@@ -1,0 +1,102 @@
+body {
+    background: #CFD0CF;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 42px;
+    line-height: 47px;
+    color: #434344;
+    text-align: center;
+
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    position: relative;
+
+    perspective: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 130px;
+    height: 130px;
+
+    margin-right: 25px;
+    margin-bottom: 25px;
+}
+
+
+.cell .back {
+    transform: rotateY(-180deg);
+}
+
+/* рубашка карточки */
+.cell .front 
+{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 0.5s ease-in;
+    color: white;
+    padding: 10px;
+    backface-visibility: hidden;
+
+    font-size: 75px;
+
+    background: linear-gradient(to top right, #22AB93, #19668D);
+    border: 5px solid white;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* мордочка карточки */
+.cell .back {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 0.5s ease-in;
+    color: white;
+    padding: 10px;
+    backface-visibility: hidden;
+
+    font-size: 75px;
+
+    background: white;
+    border: 5px solid white;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* переворот мордочкой вверх */
+.cell .fronton {
+transform: rotateY(180deg);
+}
+
+.cell .backon {
+    transform: rotateY(0deg);
+}
+
+.backon, .back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* END переворот мордочкой вверх */
