@@ -4,12 +4,54 @@ function startgame() {
 
     var cells = document.querySelectorAll(".cell > .back");
 
+    var timer = document.querySelector(".timer");
+    var timer_time = 60;
+
+    
+
+    
+
+    var x = setInterval(function() {
+        console.info(timer);
+        timer.innerHTML = timer_time;
+        timer_time = timer_time - 1;
+
+        if (isWin()) {
+            clearInterval(x);
+
+            var modalWinOn = document.querySelector(".iw-modal");
+            modalWinOn.querySelector(".iw-modal-wrapper-header").innerHTML = "Win"
+            modalWinOn.classList.add("iw-modal-on");
+            //alert("Win!");
+            return;
+        }
+        if (timer_time < 0) {
+            clearInterval(x);
+            var modalWinOn = document.querySelector(".iw-modal");
+            modalWinOn.querySelector(".iw-modal-wrapper-header").innerHTML = "Lose";
+            modalWinOn.classList.add("iw-modal-on");            
+            //alert("Время закончилось! Вы проиграли!");
+        }
+    },1000);
+
     console.info(cells);
 
     //console.info(pole);
 
     function getRandomNumber(min, max){
         return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function isWin() { // возвращет true - если поле открыто полностью  
+        var allCells = Array.from(document.querySelectorAll(".cell"));
+        //console.info(allCells);
+        //var backCell = allCells[ii].querySelector(".back");
+        for(var ii=0; ii<allCells.length; ii++) {
+            if (!allCells[ii].querySelector(".back").classList.contains("backgreen")) {
+                return false;
+            }
+        }
+        return true;
     }
     
     
@@ -115,7 +157,6 @@ function startgame() {
             }
             return true;
         }
-    
     };
 
     igra.random();
@@ -130,12 +171,28 @@ function startgame() {
     igra.print();
 
 
-
+    
 
 
 
     pole.addEventListener("click", function(event) {
         event.preventDefault();
+
+        var modalWinOn = document.querySelector(".iw-modal-on");
+
+        console.info("modalWinOn = ", modalWinOn);
+
+        if(modalWinOn !=null){
+            console.info(event.target);
+
+            // закрытие модального окна  - TODO
+            if(event.target.classList.contains("btn-play-again")) {
+                event.target.classList.remove("iw-modal-on");
+            }
+            return;
+        }
+
+        
     
         var parentNode = event.target.parentNode;
         
@@ -233,9 +290,11 @@ function startgame() {
                         }
                     }
                     console.info("igra.para = ", igra.para)
-               
             });
         }        
     }, true);
+
+
+
 
 }
