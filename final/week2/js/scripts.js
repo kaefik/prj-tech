@@ -11,6 +11,18 @@ function startgame() {
     function getRandomNumber(min, max){
         return Math.floor(Math.random() * (max - min) + min);
     }
+
+    function isWin() { // возвращет true - если поле открыто полностью  
+        var allCells = Array.from(document.querySelectorAll(".cell"));
+        //console.info(allCells);
+        //var backCell = allCells[ii].querySelector(".back");
+        for(var ii=0; ii<allCells.length; ii++) {
+            if (!allCells[ii].querySelector(".back").classList.contains("backgreen")) {
+                return false;
+            }
+        }
+        return true;
+    }
     
     
     var igra = {  
@@ -115,7 +127,6 @@ function startgame() {
             }
             return true;
         }
-    
     };
 
     igra.random();
@@ -233,7 +244,7 @@ function startgame() {
                         }
                     }
                     console.info("igra.para = ", igra.para)
-               
+              
             });
         }        
     }, true);
