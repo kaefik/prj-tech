@@ -82,7 +82,7 @@ var igra = {
             this.para[1] = step;
             return true;
         }
-        return false
+        return false;
     },
     clearParaStep: function() { // очистить переменную this.para
         this.para = Array(2);
@@ -128,7 +128,7 @@ function startgame() {
             clearInterval(x);
 
             var modalWinOn = document.querySelector(".iw-modal");
-            modalWinOn.querySelector(".iw-modal-wrapper-header").innerHTML = "Win"
+            modalWinOn.querySelector(".iw-modal-wrapper-header").innerHTML = "<div>W</div><div>i</div><div>n</div>";
             modalWinOn.classList.add("iw-modal-on");
             //alert("Win!");
             return;
@@ -136,7 +136,7 @@ function startgame() {
         if (timer_time < 0) {
             clearInterval(x);
             var modalWinOn = document.querySelector(".iw-modal");
-            modalWinOn.querySelector(".iw-modal-wrapper-header").innerHTML = "Lose";
+            modalWinOn.querySelector(".iw-modal-wrapper-header").innerHTML = "<div>L</div><div>o</div><div>s</div><div>e</div>";
             modalWinOn.classList.add("iw-modal-on");            
             //alert("Время закончилось! Вы проиграли!");
         }
@@ -244,7 +244,7 @@ function startgame() {
                                 backCell.classList.remove("backon");
                                 backCell.classList.remove("backred");
                                 frontCell.classList.remove("fronton");
-                                var backCell = allCells[igra.para[1]-1].querySelector(".back");
+                                backCell = allCells[igra.para[1]-1].querySelector(".back");
                                 var frontCell = allCells[igra.para[1]-1].querySelector(".front");
                                 backCell.classList.remove("backon");
                                 backCell.classList.remove("backred");
@@ -286,7 +286,7 @@ function startgame() {
 
                         }
                     }
-                    console.info("igra.para = ", igra.para)
+                    console.info("igra.para = ", igra.para);
             });
         }        
     }, true);
@@ -299,8 +299,6 @@ function startgame() {
         console.info("click button = ", event.target);
         var modal = document.querySelector(".iw-modal");
         modal.classList.remove("iw-modal-on");
-        startgame();
-
         var allBacks = document.querySelectorAll(".back");
         var allFronts = document.querySelectorAll(".front");
         for(var ii=0; ii< allBacks.length; ii++) {
