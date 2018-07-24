@@ -1,3 +1,112 @@
+function getRandomNumber(min, max){
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+var igra = {  
+    pole: Array(), // игровое поле
+    imoji: ['🐶', '🐱', '🐭', '🐹', '🐰', '🐻', '🐶', '🐱', '🐭', '🐹', '🐰', '🐻'],
+    para: Array(2), // открытие пары
+    createEmpty: function() {    // создание пустого поля
+        this.clearParaStep();
+        this.pole = Array(3);
+        for(var i=0; i<3; i++) {
+            this.pole[i] = ["", "", "", ""];
+        }
+    },
+    random: function() {   // генерация поля случайным образом
+        this.createEmpty();
+        var num = getRandomNumber(1,13);
+        for(var ch=0; ch<12; ch++) {
+            while(!this.isEmpty(num)) {
+                //console.info(num);
+                num = getRandomNumber(1,13);
+            }
+            this.setCoord(num, this.imoji[ch]);
+            num = getRandomNumber(1,13);
+            
+        }
+
+    },
+    setCoord: function(coord, txt) {  // coord - число от 1 до 12 которое соответствует 
+        var realcoord =  this.getRealCoord(coord);
+        this.pole[realcoord.numRow][realcoord.numColumn] = txt;
+
+    },
+    getRealCoord: function(coord) {
+        var numRow = -1;
+        var numColumn = -1;
+
+        if((coord>=1) && (coord<=4)) {
+            numRow = 0;
+            numColumn = coord-1;
+        }
+        if((coord>=5) && (coord<=8)) {
+            numRow = 1;
+            numColumn = (coord - 4) - 1;
+        }
+        if((coord>=9) && (coord<=12)){
+            numRow = 2;
+            numColumn = (coord - 8) -1;
+        }
+        return {'numRow':numRow, 'numColumn': numColumn};
+    },
+    isEmpty: function(coord) { // проверяет поле является ли пустым. пустое поле это ""
+        var realcoord =  this.getRealCoord(coord);
+        //console.info(realcoord);
+
+        if (this.pole[realcoord.numRow][realcoord.numColumn]==="") {
+            return true;
+        } else {
+            return false;
+        }
+    }, 
+    getPole: function(coord) {
+        var realcoord =  this.getRealCoord(coord);
+        return this.pole[realcoord.numRow][realcoord.numColumn];
+    },
+    print: function() {   // вывод в консоль для тестирования
+        for(var i=0; i<3; i++) {
+            var ss="";
+            for(var j=0; j<4; j++) {
+                ss = ss + this.pole[i][j]+" ";
+            }
+            console.info(ss);
+        }
+    },
+    setParaStep: function(step) { // устанавливаем пару для хода: возвращает true - если удачно записал ход, иначе false
+        if (this.para[0] == -1) {
+            this.para[0] = step;
+            return true;
+        }
+        if (this.para[1] == -1) {
+            this.para[1] = step;
+            return true;
+        }
+        return false
+    },
+    clearParaStep: function() { // очистить переменную this.para
+        this.para = Array(2);
+        this.para= [-1, -1];
+    },
+    isNormHod: function() {  // возращает true - если две ячейки из this.para равны по содержимому
+        // undefined - если ход неполный , т.е. нет одного из шагов
+        if(!this.isFullHod()){
+            return undefined;
+        }
+        if (this.getPole(this.para[0])=== this.getPole(this.para[1])) {
+            return true;
+        }
+        return false;
+    },
+    isFullHod: function() {  // true - если ход полный, то есть открыты две карточки
+        if ((this.para[0] === -1) || (this.para[1] === -1)) {
+            return false;
+        }
+        return true;
+    }
+};
+
+
 function startgame() {
 
     var pole = document.querySelector(".main");
@@ -6,15 +115,14 @@ function startgame() {
 
     var timer = document.querySelector(".timer");
     var timer_time = 60;
-
-    
-
-    
+    timer.innerHTML = "1:00";
+       
 
     var x = setInterval(function() {
-        console.info(timer);
-        timer.innerHTML = timer_time;
+        //console.info(timer);
+        
         timer_time = timer_time - 1;
+        timer.innerHTML = "0:"+timer_time;
 
         if (isWin()) {
             clearInterval(x);
@@ -36,11 +144,6 @@ function startgame() {
 
     console.info(cells);
 
-    //console.info(pole);
-
-    function getRandomNumber(min, max){
-        return Math.floor(Math.random() * (max - min) + min);
-    }
 
     function isWin() { // возвращет true - если поле открыто полностью  
         var allCells = Array.from(document.querySelectorAll(".cell"));
@@ -55,112 +158,12 @@ function startgame() {
     }
     
     
-    var igra = {  
-        pole: Array(), // игровое поле
-        imoji: ['🐶', '🐱', '🐭', '🐹', '🐰', '🐻', '🐶', '🐱', '🐭', '🐹', '🐰', '🐻'],
-        para: Array(2), // открытие пары
-        createEmpty: function() {    // создание пустого поля
-            this.clearParaStep();
-            this.pole = Array(3);
-            for(var i=0; i<3; i++) {
-                this.pole[i] = ["", "", "", ""];
-            }
-        },
-        random: function() {   // генерация поля случайным образом
-            this.createEmpty();
-            var num = getRandomNumber(1,13);
-            for(var ch=0; ch<12; ch++) {
-                while(!this.isEmpty(num)) {
-                    //console.info(num);
-                    num = getRandomNumber(1,13);
-                }
-                this.setCoord(num, this.imoji[ch]);
-                num = getRandomNumber(1,13);
-                
-            }
-    
-        },
-        setCoord: function(coord, txt) {  // coord - число от 1 до 12 которое соответствует 
-            var realcoord =  this.getRealCoord(coord);
-            this.pole[realcoord.numRow][realcoord.numColumn] = txt;
-    
-        },
-        getRealCoord: function(coord) {
-            var numRow = -1;
-            var numColumn = -1;
-    
-            if((coord>=1) && (coord<=4)) {
-                numRow = 0;
-                numColumn = coord-1;
-            }
-            if((coord>=5) && (coord<=8)) {
-                numRow = 1;
-                numColumn = (coord - 4) - 1;
-            }
-            if((coord>=9) && (coord<=12)){
-                numRow = 2;
-                numColumn = (coord - 8) -1;
-            }
-            return {'numRow':numRow, 'numColumn': numColumn};
-        },
-        isEmpty: function(coord) { // проверяет поле является ли пустым. пустое поле это ""
-            var realcoord =  this.getRealCoord(coord);
-            //console.info(realcoord);
-    
-            if (this.pole[realcoord.numRow][realcoord.numColumn]==="") {
-                return true;
-            } else {
-                return false;
-            }
-        }, 
-        getPole: function(coord) {
-            var realcoord =  this.getRealCoord(coord);
-            return this.pole[realcoord.numRow][realcoord.numColumn];
-        },
-        print: function() {   // вывод в консоль для тестирования
-            for(var i=0; i<3; i++) {
-                var ss="";
-                for(var j=0; j<4; j++) {
-                    ss = ss + this.pole[i][j]+" ";
-                }
-                console.info(ss);
-            }
-        },
-        setParaStep: function(step) { // устанавливаем пару для хода: возвращает true - если удачно записал ход, иначе false
-            if (this.para[0] == -1) {
-                this.para[0] = step;
-                return true;
-            }
-            if (this.para[1] == -1) {
-                this.para[1] = step;
-                return true;
-            }
-            return false
-        },
-        clearParaStep: function() { // очистить переменную this.para
-            this.para = Array(2);
-            this.para= [-1, -1];
-        },
-        isNormHod: function() {  // возращает true - если две ячейки из this.para равны по содержимому
-            // undefined - если ход неполный , т.е. нет одного из шагов
-            if(!this.isFullHod()){
-                return undefined;
-            }
-            if (this.getPole(this.para[0])=== this.getPole(this.para[1])) {
-                return true;
-            }
-            return false;
-        },
-        isFullHod: function() {  // true - если ход полный, то есть открыты две карточки
-            if ((this.para[0] === -1) || (this.para[1] === -1)) {
-                return false;
-            }
-            return true;
-        }
-    };
-
     igra.random();
-
+    /*
+    console.info("IGRA = ", igra);
+    console.info("IGRA POLE= ", igra.pole);
+    console.info("IGRA PARA = ", igra.para);
+    */
 
     for(var ii=0; ii < cells.length; ii++) {
         //console.info(cells[ii]);
@@ -171,28 +174,22 @@ function startgame() {
     igra.print();
 
 
-    
-
-
 
     pole.addEventListener("click", function(event) {
         event.preventDefault();
-
+  /*
         var modalWinOn = document.querySelector(".iw-modal-on");
 
         console.info("modalWinOn = ", modalWinOn);
-
+      
         if(modalWinOn !=null){
             console.info(event.target);
 
             // закрытие модального окна  - TODO
-            if(event.target.classList.contains("btn-play-again")) {
-                event.target.classList.remove("iw-modal-on");
-            }
-            return;
-        }
 
-        
+            return;
+        }*/
+
     
         var parentNode = event.target.parentNode;
         
@@ -295,6 +292,31 @@ function startgame() {
     }, true);
 
 
+    var btn = document.querySelector(".play-again");
+    console.info("btn-play-again = ", btn);
+    btn.addEventListener("click", function(event) {
+        event.preventDefault();
+        console.info("click button = ", event.target);
+        var modal = document.querySelector(".iw-modal");
+        modal.classList.remove("iw-modal-on");
+        startgame();
+
+        var allBacks = document.querySelectorAll(".back");
+        var allFronts = document.querySelectorAll(".front");
+        for(var ii=0; ii< allBacks.length; ii++) {
+            allBacks[ii].classList.add("back");
+            allBacks[ii].classList.remove("backon");
+            allBacks[ii].classList.remove("backgreen");
+            allBacks[ii].classList.remove("backred");
+            allFronts[ii].classList.add("front"); 
+            allFronts[ii].classList.remove("fronton");
+            console.info("allFronts[ii] = ", allFronts[ii]);
+        }
+
+        igra.clearParaStep();
+        igra.createEmpty();
+        startgame();
+    }, true);
 
 
 }

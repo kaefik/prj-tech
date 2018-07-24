@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .modalbackground {
+            margin: 0; /* убираем отступы */
+            padding: 0; /* убираем отступы */
+            position: fixed; /* фиксируем положение */
+            top:0; /* растягиваем блок по всему экрану */
+            bottom:0;
+            left:0;
+            right:0;
+            background: rgba(0,0,0,0.5); /* полупрозрачный цвет фона */
+            z-index:100; /* выводим фон поверх всех слоев на странице браузера */
+            opacity:0; /* Делаем невидимым */
+            pointer-events: none; /* элемент невидим для событий мыши */
+        }
+
+        .modalbackground-on {
+            opacity: 1;
+        }
+
+        /* при отображении модального окно - именно здесь начинается магия */
+        .modalbackground:target {
+            opacity: 1; /* делаем окно видимым */ 
+            pointer-events: auto; /* элемент видим для событий мыши */
+        }
+
+        /* ширина диалогового окна и его отступы от экрана */
+        .modalwindow {
+            /*width: 100%;            */
+            margin: 10% auto;
+            padding: 2%;
+            background: #fff;
+            border-radius: 3px;
+
+            min-width: 350px;
+        }
+
+        /* настройка заголовка */
+        .modalwindow h3 {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* оформление сообщение */
+
+
+        .iw-modal-wrapper-header {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            color: #434344;
+
+            margin-top: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .play-again {
+            background: linear-gradient(to top right, #22AB93, #19668D);
+            /*border: 5px solid white;*/
+            border-radius: 9px;
+            box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+
+            color: white;
+
+            height: 40px;
+            padding-left: 30px;
+            padding-right: 30px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="error" class="modalbackground modalbackground-on">
+        <div class="modalwindow">
+            <div class="iw-modal-wrapper-header">
+                Win
+            </div>
+            <div class="play-again">
+                Play again
+            </div>
+            
+        </div>
+    </div>
+
+
+</body>
+</html>
