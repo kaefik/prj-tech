@@ -1,0 +1,340 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background: #CFD0CF;
+    align-items: center;
+
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 42px;
+    line-height: 47px;
+    color: #434344;
+    text-align: center;
+
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    position: relative;
+
+    perspective: 600px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 130px;
+    height: 130px;
+
+    margin-right: 25px;
+    margin-bottom: 25px;
+}
+
+
+.cell .back {
+    transform: rotateY(-180deg);
+}
+
+/* рубашка карточки */
+.cell .front 
+{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 0.5s ease-in;
+    color: white;
+    padding: 10px;
+    backface-visibility: hidden;
+
+    font-size: 75px;
+
+    background: linear-gradient(to top right, #22AB93, #19668D);
+    border: 5px solid white;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    cursor:pointer;
+}
+
+/* мордочка карточки */
+.cell .back {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: all 0.5s ease-in;
+    /*color: black;*/
+    padding: 10px;
+    backface-visibility: hidden;
+
+    font-size: 75px;
+
+    background: white;
+    border: 5px solid white;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    cursor:pointer;
+}
+
+/* переворот мордочкой вверх */
+.cell .fronton {
+transform: rotateY(180deg);
+}
+
+.cell  .backon {
+    transform: rotateY(0deg);
+}
+
+.backon, .back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.cell .backgreen {
+    background-color: #5AD66F;
+}
+
+.cell .backred {
+    background-color: #F44336;
+}
+
+/* END переворот мордочкой вверх */
+
+.timer {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 36px;
+
+    margin-top: 5px;
+    
+
+    color: #434344;
+}
+
+
+/*модальные окна*/
+.iw-modal {
+    opacity: 0; /*изначально этот блок должен быть прозрачным*/ 
+    background: rgba(0,0,0,0.7); /*задаём цвет фона*/
+    pointer-events: none; /*делаем чтобы по элементу нельзя было кликнуть когда он прозрачный*/
+    position: fixed; 
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    transition: all 0.5s ease;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.iw-modal-on {
+    opacity: 1;
+    pointer-events: auto; /* элемент видим для событий мыши */
+}
+
+
+
+.iw-modal:target {
+    opacity: 1; /*при клике блок становится видимым*/
+    pointer-events: auto; /*теперь по блоку можно кликать мышкой*/
+    overflow-y: auto; /*прокрутка по вертикли страницы*/
+}
+
+.iw-modal-wrapper {
+    margin:auto; /*выравниваем модальное окно по центру по горизонтали*/
+    margin-top:25vh; /*отступ сверху можно задавать в px, % или vh*/
+
+    color: red;
+}
+
+/*CSS-свойства заголовка модального окна */
+.iw-modal-header {
+    padding: 0px;/*внутренний отступ*/
+    background:#f1f1f1;/*цвет фона*/
+    position:relative;
+}
+.iw-modal-title {
+    font-size: 18px; /*размер шрифта*/
+    color:#555; /*цвет шрифта*/
+    font-weight:bold; /*жирность шрифта*/
+    line-height: 1.5; /*высота строки*/
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*CSS для кнопки закрытия*/
+.iw-close {
+    position:absolute;
+    top:25px; /*отступ сверху*/
+    right:25px; /*отступ справа*/
+    font-size: 34px; /*размер шрифта*/
+    color: white; /*цвет шрифта*/
+    text-decoration: none;
+}
+
+.iw-close:hover, .iw-close:focus {
+    color: #000; /*цвет шрифта при наведении*/
+    cursor: pointer;
+}
+
+/*CSS для блока с текстом*/
+/**MEDIA**/
+@media (min-width: 550px) {
+.iw-modal-wrapper {
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+
+    min-width: 350px;
+}
+}
+
+.iw-modal-text img {
+    width: 200%;
+    /*margin:15% 25% 25% 25%;*/
+}
+
+.iw-modal-wrapper-header {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    color: #434344;
+
+    margin-top: 30px;
+    margin-bottom: 40px;
+
+    display: flex;
+}
+
+.play-again {
+    background: linear-gradient(to top right, #22AB93, #19668D);
+    /*border: 5px solid white;*/
+    border-radius: 9px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+
+    color: white;
+
+    height: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 30px;
+    z-index: 9999;
+}
+
+/*
+       При нажатии на кнопку внешняя тень должна исчезнуть, 
+       а внутренняя повиться: 2px по x, 1px по y и размытие 8px. 
+       Таким образом создаётся эффект вдавленной кнопки.
+  */
+.play-again:active {
+    background: linear-gradient(to top right, #22AB93, #19668D);
+    /*border: 5px solid white;*/
+    /*border-radius: 9px;*/
+    box-shadow: inset 2px 1px 8px 1px rgba(0, 0, 0, 0.5) ;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+
+    color: white;
+
+    height: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 30px;
+    z-index: 9999;
+}
+
+
+
+
+/* анимация прыгающие буквы */
+
+.iw-modal-wrapper-header  :nth-child(1) {
+
+    animation-name: hLetter;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 1s;
+                
+}
+
+.iw-modal-wrapper-header  :nth-child(2) {
+
+    animation-name: hLetter;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 1s;
+    animation-delay: 0.1s;
+                
+}
+
+.iw-modal-wrapper-header  :nth-child(3) {
+
+    animation-name: hLetter;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 1s;
+    animation-delay: 0.2s;
+                
+}
+
+.iw-modal-wrapper-header  :nth-child(4) {
+
+    animation-name: hLetter;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-duration: 1s;
+    animation-delay: 0.3s;
+                
+}
+
+
+@keyframes hLetter {
+    from {
+        transform: scaleY(0.5);
+    }
+    to {
+        transform: scaleY(1.5);
+    }
+}
