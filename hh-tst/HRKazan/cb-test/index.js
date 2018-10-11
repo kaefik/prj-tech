@@ -3,6 +3,7 @@ function loadData(number) {
   namefile = "./data/cars-" + currentFileName.toString() + ".json";
   console.log("namefile = ", namefile);
   readJsonFile(namefile, function(text) {
+    console.log("text = ", text);
     var data = JSON.parse(text);
     const htmlArray = data.map(function(obj, index) {
       return getRowTable(obj);
@@ -74,8 +75,15 @@ window.onscroll = function() {
   if (totalHeight >= scrollHeight) {
     console.log("at the bottom");
     var currentFileName = parseInt(getCurrentFile(), 10) + 1;
+    if (currentFileName <= 5) {
+      setCurrentFile(currentFileName);
+      loadData(currentFileName);
+    } else {
+      //скрываем прелоадер если достигли дна
+      document
+        .querySelector(".data__preloader")
+        .setAttribute("style", "display:none");
+    }
     console.log("currentFileName = ", currentFileName);
-    setCurrentFile(currentFileName);
-    loadData(currentFileName);
   }
 };
