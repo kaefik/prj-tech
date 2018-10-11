@@ -13,7 +13,7 @@
 
 .table__row {
     display: table-row;
-
+    margin: 0 auto;
     border-bottom: 1px solid #ccc;
 }
 
@@ -29,4 +29,19 @@
 .table__cell {
     display: table-cell;
     padding: 10px;
+}
+
+
+.table__body {
+    
+}
+
+.data__preloader {
+    margin:0 auto;
+    width:50px;
+    height: 50px;
+}
+
+.currentFileName {
+    /*display: none;*/
 }

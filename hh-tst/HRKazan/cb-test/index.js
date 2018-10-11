@@ -1,27 +1,20 @@
-function loadData() {  
-  readJsonFile("./data/cars-1.json", function(text) {
+function loadData(number) {
+  var currentFileName = number === undefined ? 1 : number;
+  namefile = "./data/cars-" + currentFileName.toString() + ".json";
+  console.log("namefile = ", namefile);
+  readJsonFile(namefile, function(text) {
     var data = JSON.parse(text);
-    const htmlArray = data.map(function(obj, index){
+    const htmlArray = data.map(function(obj, index) {
       return getRowTable(obj);
     });
-    console.log(htmlArray);
+    const tableBody = document.querySelector(".table__body");
+    //console.log(htmlArray);
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
-      document.body.appendChild(getRowTable(element));
-      
+      tableBody.appendChild(getRowTable(element));
     }
   });
 }
-
-
-function getScrollHeight(){
-  var height = Math.max(
-    document.body.scrollHeight, document.documentElement.scrollHeight,
-    document.body.offsetHeight, document.documentElement.offsetHeight,
-    document.body.clientHeight, document.documentElement.clientHeight
-  );
-  return height;
-  }
 
 // функция чтения данных
 function readJsonFile(file, callback) {
@@ -40,7 +33,7 @@ function readJsonFile(file, callback) {
 function getCellTable(data) {
   const elem = document.createElement("div");
   elem.className = "table__cell";
-  elem.textContent = data;  
+  elem.textContent = data;
   return elem;
 }
 
@@ -48,7 +41,7 @@ function getCellTable(data) {
 function getRowTable(obj) {
   const elem = document.createElement("div");
   elem.className = "table__cell";
-  elem.className="table__row";
+  elem.className = "table__row";
   elem.appendChild(getCellTable(obj.Name));
   elem.appendChild(getCellTable(obj.Miles_per_Gallon));
   elem.appendChild(getCellTable(obj.Cylinders));
@@ -62,24 +55,27 @@ function getRowTable(obj) {
   return elem;
 }
 
-window.onscroll = function() {
-  /*
-  var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-  document.querySelector(".showScroll").textContent = scrolled + 'px';
-  console.log("scrolled = ", scrolled + 'px');
-  var scrollHeight = 
+// получение текущей страницы
+function getCurrentFile() {
+  return document.querySelector(".currentFileName").innerHTML;
+}
 
-  console.log("hight = ",getScrollHeight());
-  */
- 
+// изменение текущей страницы
+function setCurrentFile(number) {
+  document.querySelector(".currentFileName").innerHTML = number.toString();
+}
+
+//обработка события скрола
+window.onscroll = function() {
   var scrollHeight, totalHeight;
   scrollHeight = document.body.scrollHeight;
   totalHeight = window.scrollY + window.innerHeight;
-
-  if(totalHeight >= scrollHeight)
-  {
-      console.log("at the bottom");
+  // определяем что достигли дна ;)
+  if (totalHeight >= scrollHeight) {
+    console.log("at the bottom");
+    var currentFileName = parseInt(getCurrentFile(), 10) + 1;
+    console.log("currentFileName = ", currentFileName);
+    setCurrentFile(currentFileName);
+    loadData(currentFileName);
   }
-}
-
-
+};
