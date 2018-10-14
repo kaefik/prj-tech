@@ -5,10 +5,11 @@ function loadData(number) {
   readJsonFile(namefile, function(text) {
     console.log("text = ", text);
     var data = JSON.parse(text);
+    console.log(data);
     const htmlArray = data.map(function(obj, index) {
       return getRowTable(obj);
     });
-    const tableBody = document.querySelector(".table__body");
+    const tableBody = document.querySelector(".table");
     //console.log(htmlArray);
     for (let index = 0; index < data.length; index++) {
       const element = data[index];
@@ -34,14 +35,14 @@ function readJsonFile(file, callback) {
 function getCellTable(data) {
   const elem = document.createElement("div");
   elem.className = "table__cell";
-  elem.textContent = data;
+  elem.textContent = data === null ? "-" : data;
   return elem;
 }
 
 // добавление строки
 function getRowTable(obj) {
   const elem = document.createElement("div");
-  elem.className = "table__cell";
+  //elem.className = "table__cell";
   elem.className = "table__row";
   elem.appendChild(getCellTable(obj.Name));
   elem.appendChild(getCellTable(obj.Miles_per_Gallon));
