@@ -36,9 +36,25 @@ function startDataToMap() {
     }
   });
   //определяем файл с изображением для каждого из видов иконок
-  var aircraft = new LeafIcon({ iconUrl: "img/aircraft.png" });
+  var aircraft = new LeafIcon({ iconUrl: "img/aircraft_small.png" });
   L.marker([55.77339, 49.22098], { icon: aircraft }).addTo(map);
 
   // окружность
-  L.circle(positionCoord, { radius: 200 }).addTo(map);
+  L.circle(positionCoord, { radius: 2000 }).addTo(map);
+
+  /* используем плагин src="dist/Leaflet.MovingMarker/MovingMarker.js" */
+  //MovingMarker Options
+  var animationMarker = L.Marker.movingMarker(
+    [positionCoord2, positionCoord],
+    20000,
+    { autostart: true }
+  );
+  // Custom Icon Object
+  var greenIcon = L.icon({
+    iconUrl: "img/aircraft_small.png"
+  });
+  // Set icon to movingMarker
+  animationMarker.options.icon = greenIcon;
+  // Add marker to Map
+  map.addLayer(animationMarker);
 }
