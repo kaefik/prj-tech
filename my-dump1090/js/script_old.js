@@ -61,7 +61,9 @@ function refreshSelectedInfo() {
 }
 
 function fetchData() {
-  $.getJSON("/data.json", function(data) {
+  console.log("fetch");
+  $.getJSON("http://localhost:8080/data.json", function(data) {
+    console.log("data = ", data);
     var stillhere = {};
     for (var j = 0; j < data.length; j++) {
       var plane = data[j];
@@ -71,6 +73,7 @@ function fetchData() {
 
       if (Planes[plane.hex]) {
         var myplane = Planes[plane.hex];
+        /*
         marker = myplane.marker;
         var icon = marker.getIcon();
         var newpos = new google.maps.LatLng(plane.lat, plane.lon);
@@ -83,7 +86,9 @@ function fetchData() {
         myplane.track = plane.track;
         myplane.flight = plane.flight;
         if (myplane.hex == Selected) refreshSelectedInfo();
+        */
       } else {
+        /*
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(plane.lat, plane.lon),
           map: Map,
@@ -93,8 +98,9 @@ function fetchData() {
         marker.planehex = plane.hex;
         Planes[plane.hex] = plane;
 
-        /* Trap clicks for this marker. */
+        // Trap clicks for this marker.
         google.maps.event.addListener(marker, "click", selectPlane);
+        */
       }
       if (plane.flight.length == 0) marker.setTitle(plane.hex);
       else marker.setTitle(plane.flight + " (" + plane.hex + ")");
@@ -114,7 +120,7 @@ function fetchData() {
 function initialize() {
   console.log("initialize");
   //Определяем карту, координаты центра и начальный масштаб
-  Map = L.map("map_canvas").setView([CenterLat, CenterLon], 12);
+  Map = L.map("map_canvas").setView([CenterLat, CenterLon], 6);
 
   //Добавляем на нашу карту слой OpenStreetMap
   L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
