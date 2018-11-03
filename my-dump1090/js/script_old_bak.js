@@ -1,11 +1,9 @@
-var Map = null;
-var CenterLat = 55.80051;
-var CenterLon = 49.15009;
-var Planes = {};
-var NumPlanes = 0;
-var Selected = null;
-
-console.log("script_old");
+Map = null;
+CenterLat = 45.0;
+CenterLon = 9.0;
+Planes = {};
+NumPlanes = 0;
+Selected = null;
 
 function getIconForPlane(plane) {
   var r = 255,
@@ -61,7 +59,7 @@ function refreshSelectedInfo() {
 }
 
 function fetchData() {
-  $.getJSON("/data.json", function(data) {
+  $.getJSON("../data.json", function(data) {
     var stillhere = {};
     for (var j = 0; j < data.length; j++) {
       var plane = data[j];
@@ -112,18 +110,14 @@ function fetchData() {
 }
 
 function initialize() {
-  console.log("initialize");
-  //Определяем карту, координаты центра и начальный масштаб
-  Map = L.map("map_canvas").setView([CenterLat, CenterLon], 12);
-
-  //Добавляем на нашу карту слой OpenStreetMap
-  L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(Map);
+  var mapOptions = {
+    center: new google.maps.LatLng(CenterLat, CenterLon),
+    zoom: 5,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  Map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
   /* Setup our timer to poll from the server. */
-
   window.setInterval(function() {
     fetchData();
     refreshGeneralInfo();
