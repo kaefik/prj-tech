@@ -94,7 +94,7 @@ function fetchData() {
           myplane.track = plane.track;
           myplane.flight = plane.flight;
         } else {
-          console.log(myplane, " old pos == new pos");
+          // console.log(myplane, " old pos == new pos");
         }
 
         /*
@@ -111,6 +111,14 @@ function fetchData() {
         myplane.flight = plane.flight;
         if (myplane.hex == Selected) refreshSelectedInfo();
         */
+
+        if (plane.flight.length == 0) {
+          //marker.setTitle(plane.hex);
+          myplane.marker.bindPopup(plane.hex);
+        } else {
+          //marker.setTitle(plane.flight + " (" + plane.hex + ")");
+          myplane.marker.bindPopup(plane.flight + " (" + plane.hex + ")");
+        }
       } else {
         marker = L.marker([plane.lat, plane.lon]);
         plane.marker = marker;
@@ -132,11 +140,14 @@ function fetchData() {
         // Trap clicks for this marker.
         google.maps.event.addListener(marker, "click", selectPlane);
         */
+        if (plane.flight.length == 0) {
+          //marker.setTitle(plane.hex);
+          plane.marker.bindPopup(plane.hex);
+        } else {
+          //marker.setTitle(plane.flight + " (" + plane.hex + ")");
+          plane.marker.bindPopup(plane.flight + " (" + plane.hex + ")");
+        }
       }
-      /*
-      if (plane.flight.length == 0) marker.setTitle(plane.hex);
-      else marker.setTitle(plane.flight + " (" + plane.hex + ")");
-      */
     }
     NumPlanes = data.length;
 
