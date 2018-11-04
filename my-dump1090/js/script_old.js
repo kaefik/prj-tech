@@ -39,6 +39,20 @@ function selectPlane() {
   refreshSelectedInfo();
 }
 
+function pan(){
+  console.log("click pan");
+
+  if (!Planes[this.planehex]) return;
+  var old = Selected;
+  Selected = this.planehex;
+  if (Planes[old]) {
+    /* Remove the highlight in the previously selected plane. */
+   // Planes[old].marker.setIcon(getIconForPlane(Planes[old]));
+  }
+  //Planes[Selected].marker.setIcon(getIconForPlane(Planes[Selected]));
+  refreshSelectedInfo();
+}
+
 function refreshGeneralInfo() {
   var i = document.getElementById("geninfo");
 
@@ -46,6 +60,7 @@ function refreshGeneralInfo() {
 }
 
 function refreshSelectedInfo() {
+  console.log("refreshSelectedInfo()")
   var i = document.getElementById("selinfo");
   var p = Planes[Selected];
 
@@ -93,9 +108,12 @@ function fetchData() {
           myplane.lon = plane.lon;
           myplane.track = plane.track;
           myplane.flight = plane.flight;
+          if (myplane.hex == Selected) refreshSelectedInfo();
+          //L.DomEvent.addListener(myplane.marker, 'click', pan);
         } else {
           // console.log(myplane, " old pos == new pos");
         }
+        
 
         /*
         marker = myplane.marker;
@@ -125,6 +143,8 @@ function fetchData() {
         plane.marker.addTo(Map);
         marker.planehex = plane.hex;
         Planes[plane.hex] = plane;
+
+        L.DomEvent.addListener(plane.marker, 'click', pan);
         //addTo(map);
         // TODO: добавить обработкчик на click google.maps.event.addListener(marker, "click", selectPlane);
         /*
