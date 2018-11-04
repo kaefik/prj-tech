@@ -73,6 +73,22 @@ function fetchData() {
 
       if (Planes[plane.hex]) {
         var myplane = Planes[plane.hex];
+        /*console.log(myplane, " old pos = ", myplane.marker, " new pos = ", [
+          plane.lat,
+          plane.lon
+        ]);*/
+        marker = myplane.marker;
+        var newpos = L.marker([plane.lat, plane.lon]); //new google.maps.LatLng(plane.lat, plane.lon);
+        marker.removeFrom(Map);
+        plane.marker = newpos;
+        plane.marker.addTo(Map);
+
+        myplane.altitude = plane.altitude;
+        myplane.speed = plane.speed;
+        myplane.lat = plane.lat;
+        myplane.lon = plane.lon;
+        myplane.track = plane.track;
+        myplane.flight = plane.flight;
         /*
         marker = myplane.marker;
         var icon = marker.getIcon();
@@ -88,6 +104,13 @@ function fetchData() {
         if (myplane.hex == Selected) refreshSelectedInfo();
         */
       } else {
+        marker = L.marker([plane.lat, plane.lon]);
+        plane.marker = marker;
+        plane.marker.addTo(Map);
+        marker.planehex = plane.hex;
+        Planes[plane.hex] = plane;
+        //addTo(map);
+        // TODO: добавить обработкчик на click google.maps.event.addListener(marker, "click", selectPlane);
         /*
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(plane.lat, plane.lon),
@@ -102,15 +125,18 @@ function fetchData() {
         google.maps.event.addListener(marker, "click", selectPlane);
         */
       }
+      /*
       if (plane.flight.length == 0) marker.setTitle(plane.hex);
       else marker.setTitle(plane.flight + " (" + plane.hex + ")");
+      */
     }
     NumPlanes = data.length;
 
     /* Remove idle planes. */
     for (var p in Planes) {
       if (!stillhere[p]) {
-        Planes[p].marker.setMap(null);
+        //Planes[p].marker.setMap(null);
+        Planes[p].marker.removeFrom(Map);
         delete Planes[p];
       }
     }
