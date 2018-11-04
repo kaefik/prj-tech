@@ -61,9 +61,9 @@ function refreshSelectedInfo() {
 }
 
 function fetchData() {
-  console.log("fetch");
+  //console.log("fetch");
   $.getJSON("http://localhost:8080/data.json", function(data) {
-    console.log("data = ", data);
+    //console.log("data = ", data);
     var stillhere = {};
     for (var j = 0; j < data.length; j++) {
       var plane = data[j];
@@ -73,22 +73,30 @@ function fetchData() {
 
       if (Planes[plane.hex]) {
         var myplane = Planes[plane.hex];
-        /*console.log(myplane, " old pos = ", myplane.marker, " new pos = ", [
-          plane.lat,
-          plane.lon
-        ]);*/
-        marker = myplane.marker;
-        var newpos = L.marker([plane.lat, plane.lon]); //new google.maps.LatLng(plane.lat, plane.lon);
-        marker.removeFrom(Map);
-        plane.marker = newpos;
-        plane.marker.addTo(Map);
+        if (myplane.lat != plane.lat && myplane.lon != plane.lon) {
+          console.log(
+            myplane,
+            " old pos = ",
+            [myplane.lat, myplane.lon],
+            " new pos = ",
+            [plane.lat, plane.lon]
+          );
+          marker = myplane.marker;
+          var newpos = L.marker([plane.lat, plane.lon]); //new google.maps.LatLng(plane.lat, plane.lon);
+          myplane.marker.removeFrom(Map);
+          myplane.marker = newpos;
+          myplane.marker.addTo(Map);
 
-        myplane.altitude = plane.altitude;
-        myplane.speed = plane.speed;
-        myplane.lat = plane.lat;
-        myplane.lon = plane.lon;
-        myplane.track = plane.track;
-        myplane.flight = plane.flight;
+          myplane.altitude = plane.altitude;
+          myplane.speed = plane.speed;
+          myplane.lat = plane.lat;
+          myplane.lon = plane.lon;
+          myplane.track = plane.track;
+          myplane.flight = plane.flight;
+        } else {
+          console.log(myplane, " old pos == new pos");
+        }
+
         /*
         marker = myplane.marker;
         var icon = marker.getIcon();
