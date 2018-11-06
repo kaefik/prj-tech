@@ -26,21 +26,26 @@ function getIconForPlane(plane) {
     rotation: plane.track
   };
 }
-
+/*
 function selectPlane() {
   if (!Planes[this.planehex]) return;
   var old = Selected;
   Selected = this.planehex;
   if (Planes[old]) {
-    /* Remove the highlight in the previously selected plane. */
+    
     Planes[old].marker.setIcon(getIconForPlane(Planes[old]));
   }
   Planes[Selected].marker.setIcon(getIconForPlane(Planes[Selected]));
   refreshSelectedInfo();
 }
+*/
 
-function pan(){
+function pan(ev){
   console.log("click pan");
+  console.log("ev = ", ev);
+  console.log("Planes = ", Planes);
+
+  console.log("this.planehex = ", this);
 
   if (!Planes[this.planehex]) return;
   var old = Selected;
@@ -63,6 +68,7 @@ function refreshSelectedInfo() {
   console.log("refreshSelectedInfo()")
   var i = document.getElementById("selinfo");
   var p = Planes[Selected];
+  console.log("p = ", p);
 
   if (!p) return;
   var html = "ICAO: " + p.hex + "<br>";
@@ -90,76 +96,40 @@ function fetchData() {
         var myplane = Planes[plane.hex];
         if (myplane.lat != plane.lat && myplane.lon != plane.lon) {
           console.log(
-            myplane,
+            myplane.flight,
             " old pos = ",
             [myplane.lat, myplane.lon],
             " new pos = ",
             [plane.lat, plane.lon]
           );
-          marker = myplane.marker;
-          var newpos = L.marker([plane.lat, plane.lon]); //new google.maps.LatLng(plane.lat, plane.lon);
-          myplane.marker.removeFrom(Map);
-          myplane.marker = newpos;
-          myplane.marker.addTo(Map);
-
-          myplane.altitude = plane.altitude;
-          myplane.speed = plane.speed;
-          myplane.lat = plane.lat;
-          myplane.lon = plane.lon;
-          myplane.track = plane.track;
-          myplane.flight = plane.flight;
-          if (myplane.hex == Selected) refreshSelectedInfo();
-          //L.DomEvent.addListener(myplane.marker, 'click', pan);
-        } else {
-          // console.log(myplane, " old pos == new pos");
-        }
+          Planes[plane.hex].marker.removeFrom(Map);
+          Planes[plane.hex].marker = new L.marker([plane.lat, plane.lon]);
+          Planes[plane.hex].altitude = plane.altitude;
+          Planes[plane.hex].speed = plane.speed;
+          Planes[plane.hex].lat = plane.lat;
+          Planes[plane.hex].lon = plane.lon;
+          Planes[plane.hex].track = plane.track;
+          Planes[plane.hex].flight = plane.flight;
+          L.DomEvent.addListener(Planes[plane.hex].marker, 'click', pan);
+          if (Planes[plane.hex].hex == Selected) refreshSelectedInfo();
+          
+          if (plane.flight.length == 0) {
+            Planes[plane.hex].marker.bindPopup(plane.hex);
+          } else {
+            Planes[plane.hex].marker.bindPopup(plane.flight + " (" + plane.hex + ")");
+          }
+          Planes[plane.hex].marker.addTo(Map);
+        } 
         
-
-        /*
-        marker = myplane.marker;
-        var icon = marker.getIcon();
-        var newpos = new google.maps.LatLng(plane.lat, plane.lon);
-        marker.setPosition(newpos);
-        marker.setIcon(getIconForPlane(plane));
-        myplane.altitude = plane.altitude;
-        myplane.speed = plane.speed;
-        myplane.lat = plane.lat;
-        myplane.lon = plane.lon;
-        myplane.track = plane.track;
-        myplane.flight = plane.flight;
-        if (myplane.hex == Selected) refreshSelectedInfo();
-        */
-
-        if (plane.flight.length == 0) {
-          //marker.setTitle(plane.hex);
-          myplane.marker.bindPopup(plane.hex);
-        } else {
-          //marker.setTitle(plane.flight + " (" + plane.hex + ")");
-          myplane.marker.bindPopup(plane.flight + " (" + plane.hex + ")");
-        }
+        
       } else {
-        marker = L.marker([plane.lat, plane.lon]);
-        plane.marker = marker;
-        plane.marker.addTo(Map);
-        marker.planehex = plane.hex;
+        plane.marker = new L.marker([plane.lat, plane.lon]);
+        //plane.planehex = plane.hex;
         Planes[plane.hex] = plane;
+        Planes[plane.hex].marker.addTo(Map);
 
-        L.DomEvent.addListener(plane.marker, 'click', pan);
-        //addTo(map);
-        // TODO: добавить обработкчик на click google.maps.event.addListener(marker, "click", selectPlane);
-        /*
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(plane.lat, plane.lon),
-          map: Map,
-          icon: getIconForPlane(plane)
-        });
-        plane.marker = marker;
-        marker.planehex = plane.hex;
-        Planes[plane.hex] = plane;
-
-        // Trap clicks for this marker.
-        google.maps.event.addListener(marker, "click", selectPlane);
-        */
+        L.DomEvent.addListener(Planes[plane.hex].marker, 'click', pan);
+        
         if (plane.flight.length == 0) {
           //marker.setTitle(plane.hex);
           plane.marker.bindPopup(plane.hex);
