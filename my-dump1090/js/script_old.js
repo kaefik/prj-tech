@@ -40,19 +40,19 @@ function selectPlane() {
 }
 */
 
-function pan(ev){
+function pan(ev) {
   console.log("click pan");
   console.log("ev = ", ev);
   console.log("Planes = ", Planes);
 
-  console.log("this.planehex = ", this);
+  console.log("this.planehex = ", this.planehex);
 
   if (!Planes[this.planehex]) return;
   var old = Selected;
   Selected = this.planehex;
   if (Planes[old]) {
     /* Remove the highlight in the previously selected plane. */
-   // Planes[old].marker.setIcon(getIconForPlane(Planes[old]));
+    // Planes[old].marker.setIcon(getIconForPlane(Planes[old]));
   }
   //Planes[Selected].marker.setIcon(getIconForPlane(Planes[Selected]));
   refreshSelectedInfo();
@@ -65,7 +65,7 @@ function refreshGeneralInfo() {
 }
 
 function refreshSelectedInfo() {
-  console.log("refreshSelectedInfo()")
+  console.log("refreshSelectedInfo()");
   var i = document.getElementById("selinfo");
   var p = Planes[Selected];
   console.log("p = ", p);
@@ -102,40 +102,49 @@ function fetchData() {
             " new pos = ",
             [plane.lat, plane.lon]
           );
-          Planes[plane.hex].marker.removeFrom(Map);
-          Planes[plane.hex].marker = new L.marker([plane.lat, plane.lon]);
+          Planes[plane.hex].removeFrom(Map);
+          Planes[plane.hex] = new L.marker([plane.lat, plane.lon]);
           Planes[plane.hex].altitude = plane.altitude;
+          Planes[plane.hex].planehex = plane.hex;
           Planes[plane.hex].speed = plane.speed;
-          Planes[plane.hex].lat = plane.lat;
-          Planes[plane.hex].lon = plane.lon;
           Planes[plane.hex].track = plane.track;
+          Planes[plane.hex].lon = plane.lon;
+          Planes[plane.hex].lat = plane.lat;
           Planes[plane.hex].flight = plane.flight;
-          L.DomEvent.addListener(Planes[plane.hex].marker, 'click', pan);
+          Planes[plane.hex].hex = plane.hex;
+          L.DomEvent.addListener(Planes[plane.hex], "click", pan);
+          //refreshSelectedInfo();
           if (Planes[plane.hex].hex == Selected) refreshSelectedInfo();
-          
-          if (plane.flight.length == 0) {
-            Planes[plane.hex].marker.bindPopup(plane.hex);
-          } else {
-            Planes[plane.hex].marker.bindPopup(plane.flight + " (" + plane.hex + ")");
-          }
-          Planes[plane.hex].marker.addTo(Map);
-        } 
-        
-        
-      } else {
-        plane.marker = new L.marker([plane.lat, plane.lon]);
-        //plane.planehex = plane.hex;
-        Planes[plane.hex] = plane;
-        Planes[plane.hex].marker.addTo(Map);
 
-        L.DomEvent.addListener(Planes[plane.hex].marker, 'click', pan);
-        
+          if (plane.flight.length == 0) {
+            Planes[plane.hex].bindPopup(plane.hex);
+          } else {
+            Planes[plane.hex].bindPopup(plane.flight + " (" + plane.hex + ")");
+          }
+          Planes[plane.hex].addTo(Map);
+        }
+      } else {
+        Planes[plane.hex] = new L.marker([plane.lat, plane.lon]);
+        //Planes[plane.hex] = plane;
+        Planes[plane.hex].altitude = plane.altitude;
+        Planes[plane.hex].planehex = plane.hex;
+        Planes[plane.hex].speed = plane.speed;
+        Planes[plane.hex].track = plane.track;
+        Planes[plane.hex].lon = plane.lon;
+        Planes[plane.hex].lat = plane.lat;
+        Planes[plane.hex].flight = plane.flight;
+        Planes[plane.hex].hex = plane.hex;
+
+        Planes[plane.hex].addTo(Map);
+
+        L.DomEvent.addListener(Planes[plane.hex], "click", pan);
+
         if (plane.flight.length == 0) {
           //marker.setTitle(plane.hex);
-          plane.marker.bindPopup(plane.hex);
+          Planes[plane.hex].bindPopup(plane.hex);
         } else {
-          //marker.setTitle(plane.flight + " (" + plane.hex + ")");
-          plane.marker.bindPopup(plane.flight + " (" + plane.hex + ")");
+          //marker.setTitle(plane.flight + "Planes[plane.hex].hex = plane.hex; (" + plane.hex + ")");
+          Planes[plane.hex].bindPopup(plane.flight + " (" + plane.hex + ")");
         }
       }
     }
@@ -145,7 +154,7 @@ function fetchData() {
     for (var p in Planes) {
       if (!stillhere[p]) {
         //Planes[p].marker.setMap(null);
-        Planes[p].marker.removeFrom(Map);
+        Planes[p].removeFrom(Map);
         delete Planes[p];
       }
     }
@@ -164,7 +173,6 @@ function initialize() {
   }).addTo(Map);
 
   /* Setup our timer to poll from the server. */
-
   window.setInterval(function() {
     fetchData();
     refreshGeneralInfo();
