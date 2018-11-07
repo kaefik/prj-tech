@@ -5,6 +5,23 @@ var Planes = {};
 var NumPlanes = 0;
 var Selected = null;
 
+//  добавить маркер на карту со своей иконкой
+//задаем параметры для нашей иконки
+var LeafIcon = L.Icon.extend({
+  options: {
+    shadowUrl: "img/shadow.png",
+    iconSize: [32, 37],
+    shadowSize: [51, 37],
+    iconAnchor: [16, 37],
+    shadowAnchor: [16, 37],
+    popupAnchor: [0, -30]
+  }
+});
+//определяем файл с изображением для каждого из видов иконок
+var aircraft_left = new LeafIcon({ iconUrl: "img/aircraft_left.png" });
+var aircraft_right = new LeafIcon({ iconUrl: "img/aircraft_right.png" });
+//L.marker([55.77339, 49.22098], { icon: aircraft }).addTo(map);
+
 console.log("script_old");
 
 function getIconForPlane(plane) {
@@ -49,6 +66,7 @@ function pan(ev) {
 
   if (!Planes[this.planehex]) return;
   var old = Selected;
+  е;
   Selected = this.planehex;
   if (Planes[old]) {
     /* Remove the highlight in the previously selected plane. */
@@ -103,7 +121,9 @@ function fetchData() {
             [plane.lat, plane.lon]
           );
           Planes[plane.hex].removeFrom(Map);
-          Planes[plane.hex] = new L.marker([plane.lat, plane.lon]);
+          Planes[plane.hex] = new L.marker([plane.lat, plane.lon], {
+            icon: aircraft_left
+          });
           Planes[plane.hex].altitude = plane.altitude;
           Planes[plane.hex].planehex = plane.hex;
           Planes[plane.hex].speed = plane.speed;
@@ -124,7 +144,9 @@ function fetchData() {
           Planes[plane.hex].addTo(Map);
         }
       } else {
-        Planes[plane.hex] = new L.marker([plane.lat, plane.lon]);
+        Planes[plane.hex] = new L.marker([plane.lat, plane.lon], {
+          icon: aircraft_left
+        });
         //Planes[plane.hex] = plane;
         Planes[plane.hex].altitude = plane.altitude;
         Planes[plane.hex].planehex = plane.hex;
